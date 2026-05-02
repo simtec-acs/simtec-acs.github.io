@@ -1,10 +1,784 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Simtec Group AG</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #08090a;
+      --panel: rgba(18, 20, 22, 0.78);
+      --panel-strong: rgba(13, 15, 17, 0.92);
+      --line: rgba(166, 176, 184, 0.22);
+      --line-bright: rgba(221, 232, 238, 0.45);
+      --text: #eef3f5;
+      --muted: #9da8ae;
+      --accent: #d9f4ee;
+      --accent-2: #a8b5b8;
+      --shadow: 0 22px 70px rgba(0, 0, 0, 0.46);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 5.5rem;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(198, 215, 212, 0.14), transparent 25rem),
+        radial-gradient(circle at 85% 35%, rgba(93, 109, 116, 0.22), transparent 26rem),
+        linear-gradient(180deg, #060708 0%, #111315 48%, #08090a 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 74px 74px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent 88%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background: linear-gradient(rgba(255, 255, 255, 0.018) 50%, transparent 50%);
+      background-size: 100% 4px;
+      opacity: 0.42;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem clamp(1rem, 4vw, 4rem);
+      background: linear-gradient(180deg, rgba(5, 6, 7, 0.9), rgba(5, 6, 7, 0.58));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      min-width: 0;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 2rem;
+      aspect-ratio: 1;
+      border: 1px solid var(--line-bright);
+      background:
+        linear-gradient(135deg, transparent 42%, rgba(226, 244, 240, 0.82) 43% 47%, transparent 48%),
+        radial-gradient(circle at 68% 28%, var(--accent), transparent 0.18rem),
+        #0c0f10;
+      box-shadow: 0 0 24px rgba(203, 230, 226, 0.16);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: clamp(0.75rem, 2vw, 1.6rem);
+      color: var(--muted);
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .nav-links a {
+      transition: color 160ms ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+      outline: none;
+    }
+
+    .section {
+      position: relative;
+      min-height: 100vh;
+      padding: clamp(6rem, 12vh, 8rem) clamp(1rem, 5vw, 5rem);
+      scroll-margin-top: 5.5rem;
+      overflow: hidden;
+    }
+
+    .section-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .hero {
+      display: grid;
+      align-items: center;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -3;
+      background:
+        linear-gradient(90deg, rgba(5, 6, 7, 0.92) 0%, rgba(5, 6, 7, 0.62) 46%, rgba(5, 6, 7, 0.86) 100%),
+        linear-gradient(180deg, rgba(8, 9, 10, 0.12), rgba(8, 9, 10, 0.88)),
+        url("https://thumbs.dreamstime.com/b/data-technology-background-abstract-background-connecting-dots-lines-dark-background-data-technology-background-abstract-215050590.jpg?w=992");
+      background-size: cover;
+      background-position: center;
+      filter: grayscale(0.88) saturate(0.42) brightness(0.58) contrast(1.18);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background:
+        linear-gradient(115deg, transparent 0 22%, rgba(237, 250, 246, 0.14) 22.2%, transparent 22.7% 57%, rgba(237, 250, 246, 0.1) 57.2%, transparent 57.6%),
+        radial-gradient(circle at 68% 42%, rgba(232, 252, 247, 0.16), transparent 0.28rem),
+        radial-gradient(circle at 74% 48%, rgba(232, 252, 247, 0.12), transparent 0.2rem),
+        radial-gradient(circle at 58% 35%, rgba(232, 252, 247, 0.14), transparent 0.16rem);
+      opacity: 0.68;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(270px, 0.55fr);
+      align-items: end;
+      gap: clamp(2rem, 6vw, 5rem);
+      padding-top: 4rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 1.1rem;
+      color: var(--accent);
+      font-size: clamp(0.72rem, 1vw, 0.84rem);
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2 {
+      max-width: 100%;
+      margin: 0;
+      letter-spacing: 0;
+      line-height: 0.96;
+      text-wrap: balance;
+    }
+
+    h1 {
+      max-width: 850px;
+      font-size: clamp(3.4rem, 10vw, 8.9rem);
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: clamp(2.5rem, 6vw, 5.7rem);
+      text-transform: uppercase;
+    }
+
+    .hero-copy {
+      max-width: 670px;
+      margin: 1.55rem 0 0;
+      color: #cbd4d7;
+      font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+      line-height: 1.65;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 2.1rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3rem;
+      padding: 0.85rem 1.15rem;
+      border: 1px solid var(--line-bright);
+      background: rgba(232, 248, 244, 0.08);
+      color: var(--text);
+      font-weight: 750;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+      background: rgba(232, 248, 244, 0.15);
+      border-color: rgba(238, 248, 246, 0.82);
+      outline: none;
+    }
+
+    .button.secondary {
+      background: rgba(0, 0, 0, 0.32);
+      color: #c5ced1;
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .signal-panel {
+      align-self: stretch;
+      min-height: 360px;
+      padding: 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: linear-gradient(180deg, rgba(12, 14, 16, 0.72), rgba(8, 9, 10, 0.9));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .signal-map {
+      position: relative;
+      height: 100%;
+      min-height: 320px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        radial-gradient(circle at 25% 72%, rgba(211, 237, 232, 0.2), transparent 0.4rem),
+        radial-gradient(circle at 76% 28%, rgba(211, 237, 232, 0.18), transparent 0.34rem),
+        radial-gradient(circle at 62% 68%, rgba(211, 237, 232, 0.14), transparent 0.25rem),
+        #0a0c0d;
+      background-size: 38px 38px, 38px 38px, auto, auto, auto, auto;
+      overflow: hidden;
+    }
+
+    .signal-map::before,
+    .signal-map::after {
+      content: "";
+      position: absolute;
+      inset: 12% 10%;
+      border: 1px solid rgba(221, 238, 235, 0.18);
+      transform: skewX(-16deg);
+    }
+
+    .signal-map::after {
+      inset: 28% 18% 19% 27%;
+      border-color: rgba(221, 238, 235, 0.34);
+      box-shadow: 0 0 34px rgba(212, 240, 235, 0.1);
+    }
+
+    .signal-line {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(231, 249, 245, 0.65), transparent);
+      transform-origin: left center;
+    }
+
+    .signal-line.one {
+      width: 70%;
+      top: 34%;
+      left: 13%;
+      transform: rotate(22deg);
+    }
+
+    .signal-line.two {
+      width: 50%;
+      top: 69%;
+      left: 19%;
+      transform: rotate(-29deg);
+    }
+
+    .signal-line.three {
+      width: 52%;
+      top: 50%;
+      right: -5%;
+      transform: rotate(132deg);
+    }
+
+    .signal-label {
+      position: absolute;
+      left: 1rem;
+      right: 1rem;
+      bottom: 1rem;
+      display: grid;
+      gap: 0.35rem;
+      color: #dce8ea;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .readout {
+      color: var(--muted);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 0.7fr) minmax(280px, 0.5fr);
+      gap: clamp(2rem, 6vw, 5rem);
+      align-items: start;
+    }
+
+    .about {
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 16rem),
+        linear-gradient(135deg, rgba(18, 21, 23, 0.82), rgba(7, 8, 9, 0.96));
+    }
+
+    .section-copy {
+      margin: 1.4rem 0 0;
+      color: #bdc8cb;
+      font-size: clamp(1rem, 1.4vw, 1.17rem);
+      line-height: 1.75;
+    }
+
+    .about-list {
+      display: grid;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .about-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .about-number {
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+    }
+
+    .about-item h3 {
+      margin: 0 0 0.4rem;
+      font-size: 1.05rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .about-item p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .metrics {
+      display: grid;
+      gap: 1rem;
+      padding: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .metric {
+      min-height: 8rem;
+      padding: 1.15rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background:
+        linear-gradient(135deg, rgba(231, 247, 244, 0.08), transparent 45%),
+        rgba(255, 255, 255, 0.025);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: clamp(1.9rem, 4vw, 3.25rem);
+      line-height: 1;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 0.65rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .contact {
+      background:
+        radial-gradient(circle at 20% 20%, rgba(218, 240, 235, 0.1), transparent 28rem),
+        linear-gradient(180deg, #090a0b, #050606);
+    }
+
+    .contact-panel {
+      padding: clamp(1rem, 3vw, 1.6rem);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: var(--panel-strong);
+      box-shadow: var(--shadow);
+    }
+
+    form {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    label {
+      display: grid;
+      gap: 0.45rem;
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    input,
+    textarea {
+      min-width: 0;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.045);
+      color: var(--text);
+      font: inherit;
+      font-size: 1rem;
+      padding: 0.95rem 1rem;
+      outline: none;
+      transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(226, 249, 244, 0.76);
+      background: rgba(255, 255, 255, 0.07);
+      box-shadow: 0 0 0 3px rgba(226, 249, 244, 0.08);
+    }
+
+    textarea {
+      min-height: 9.5rem;
+      resize: vertical;
+    }
+
+    .form-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .contact-details {
+      display: grid;
+      gap: 1.2rem;
+      margin-top: 2rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .contact-details a {
+      color: var(--text);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+    }
+
+    .footer {
+      padding: 1.6rem clamp(1rem, 5vw, 5rem);
+      color: #758087;
+      font-size: 0.82rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: #050606;
+    }
+
+    .footer-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 860px) {
+      html {
+        scroll-padding-top: 7.5rem;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding-block: 0.85rem;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+        font-size: 0.72rem;
+      }
+
+      .hero-grid,
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-grid {
+        padding-top: 6rem;
+      }
+
+      .signal-panel {
+        min-height: 280px;
+      }
+
+      .signal-map {
+        min-height: 250px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      html {
+        scroll-padding-top: 8.25rem;
+      }
+
+      .section {
+        padding-inline: 1rem;
+        scroll-margin-top: 8.25rem;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 18vw, 5rem);
+      }
+
+      .hero-copy,
+      .section-copy {
+        font-size: 1rem;
+      }
+
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .form-foot {
+        align-items: stretch;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .nav {
+        gap: 0.8rem;
+      }
+
+      .brand {
+        width: 100%;
+        white-space: normal;
+        font-size: 0.74rem;
+        line-height: 1.25;
+      }
+
+      .brand-mark {
+        flex: 0 0 auto;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+        row-gap: 0.45rem;
+        letter-spacing: 0.09em;
+      }
+
+      .hero-grid {
+        padding-top: 7rem;
+      }
+
+      .signal-panel {
+        min-height: 230px;
+        padding: 0.75rem;
+      }
+
+      .signal-map {
+        min-height: 210px;
+      }
+
+      .signal-label {
+        font-size: 0.62rem;
+      }
+    }
+  </style>
+</head>
 <body>
-  <h1>The Simtec Group AG</h1>
-  <p>Leverage the Future</p>
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="brand" href="#top" aria-label="The Simtec Group AG home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>The Simtec Group AG</span>
+    </a>
+    <div class="nav-links">
+      <a href="#about">About Us</a>
+      <a href="#contact">Contact Us</a>
+    </div>
+  </nav>
 
+  <main id="top">
+    <section class="section hero" aria-labelledby="hero-title">
+      <div class="section-inner hero-grid">
+        <div>
+          <p class="eyebrow">Strategic systems / future leverage</p>
+          <h1 id="hero-title">Leverage the Future</h1>
+          <p class="hero-copy">
+            The Simtec Group AG builds disciplined technology ventures, digital infrastructure, and strategic operating systems for teams moving through complexity at speed.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="#contact">Start a Conversation</a>
+            <a class="button secondary" href="#about">Explore Simtec</a>
+          </div>
+        </div>
 
-  
+        <aside class="signal-panel" aria-label="Network signal visualization">
+          <div class="signal-map">
+            <span class="signal-line one"></span>
+            <span class="signal-line two"></span>
+            <span class="signal-line three"></span>
+            <div class="signal-label">
+              <span>Node System Active</span>
+              <span class="readout">CH-AG / 47.3769 N</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section about" id="about" aria-labelledby="about-title">
+      <div class="section-inner split">
+        <div>
+          <p class="eyebrow">About Us</p>
+          <h2 id="about-title">Built for what comes next</h2>
+          <p class="section-copy">
+            Simtec Group AG is a Switzerland-based group focused on technology-enabled growth, resilient operations, and long-horizon value creation. We partner across strategy, systems, and execution to convert ambitious ideas into dependable momentum.
+          </p>
+          <div class="about-list">
+            <article class="about-item">
+              <span class="about-number">01</span>
+              <div>
+                <h3>Systems Thinking</h3>
+                <p>We design around the full operating environment: people, process, data, capital, and the incentives that connect them.</p>
+              </div>
+            </article>
+            <article class="about-item">
+              <span class="about-number">02</span>
+              <div>
+                <h3>Technical Edge</h3>
+                <p>We favor pragmatic, secure, and scalable technology that keeps organizations adaptable without adding unnecessary noise.</p>
+              </div>
+            </article>
+            <article class="about-item">
+              <span class="about-number">03</span>
+              <div>
+                <h3>Execution Discipline</h3>
+                <p>We move from concept to delivery with clear priorities, tight feedback loops, and a bias toward measurable outcomes.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="metrics" aria-label="Company focus areas">
+          <div class="metric">
+            <strong>AG</strong>
+            <span>Swiss corporate structure with an international technology outlook.</span>
+          </div>
+          <div class="metric">
+            <strong>3x</strong>
+            <span>Strategy, infrastructure, and operating execution working in concert.</span>
+          </div>
+          <div class="metric">
+            <strong>24/7</strong>
+            <span>Built for persistent systems, resilient decisions, and always-on markets.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact" aria-labelledby="contact-title">
+      <div class="section-inner split">
+        <div>
+          <p class="eyebrow">Contact Us</p>
+          <h2 id="contact-title">Open a channel</h2>
+          <p class="section-copy">
+            Tell us what you are building, where the friction is, or what opportunity you are trying to unlock. We will route the message to the right person and follow up directly.
+          </p>
+          <div class="contact-details">
+            <span>The Simtec Group AG</span>
+            <span>Switzerland</span>
+            <a href="mailto:contact@simtecgroup.com">contact@simtecgroup.com</a>
+          </div>
+        </div>
+
+        <div class="contact-panel">
+          <form action="mailto:contact@simtecgroup.com" method="post" enctype="text/plain">
+            <div class="field-grid">
+              <label>
+                Name
+                <input name="name" type="text" autocomplete="name" required>
+              </label>
+              <label>
+                Email
+                <input name="email" type="email" autocomplete="email" required>
+              </label>
+            </div>
+            <label>
+              Company
+              <input name="company" type="text" autocomplete="organization">
+            </label>
+            <label>
+              Message
+              <textarea name="message" required></textarea>
+            </label>
+            <div class="form-foot">
+              <span>Response window: 1-2 business days</span>
+              <button class="button" type="submit">Transmit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>&copy; 2026 The Simtec Group AG</span>
+      <span>Leverage the Future</span>
+    </div>
+  </footer>
 </body>
 </html>
