@@ -512,6 +512,13 @@
       font-size: 0.86rem;
     }
 
+    .form-status {
+      margin: 0;
+      color: #cbd4d7;
+      font-size: 0.86rem;
+      line-height: 1.6;
+    }
+
     .contact-details {
       display: grid;
       gap: 1.2rem;
@@ -766,7 +773,7 @@
         </div>
 
         <div class="contact-panel">
-          <form action="mailto:contact@simtecgroup.com" method="post" enctype="text/plain">
+          <form id="contact-form" data-mailto="contact@simtecgroup.com">
             <div class="field-grid">
               <label>
                 Name
@@ -789,6 +796,9 @@
               <span>Response window: 1-2 business days</span>
               <button class="button" type="submit">Transmit</button>
             </div>
+            <p class="form-status" id="form-status" aria-live="polite">
+              Transmit opens your default mail app with a prefilled message draft.
+            </p>
           </form>
         </div>
       </div>
@@ -991,6 +1001,46 @@
       window.addEventListener("resize", resize, { passive: true });
       resize();
       requestAnimationFrame(draw);
+    })();
+
+    (() => {
+      const form = document.getElementById("contact-form");
+      const status = document.getElementById("form-status");
+
+      if (!form || !status) {
+        return;
+      }
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        if (!form.reportValidity()) {
+          status.textContent = "Please complete the required fields before transmitting.";
+          return;
+        }
+
+        const formData = new FormData(form);
+        const name = String(formData.get("name") || "").trim();
+        const email = String(formData.get("email") || "").trim();
+        const company = String(formData.get("company") || "").trim();
+        const message = String(formData.get("message") || "").trim();
+        const recipient = form.dataset.mailto;
+
+        const subject = `Simtec Group inquiry from ${name}`;
+        const body = [
+          `Name: ${name}`,
+          `Email: ${email}`,
+          `Company: ${company || "Not provided"}`,
+          "",
+          "Message:",
+          message
+        ].join("\n");
+
+        const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        status.textContent = "Opening your mail app with a prefilled draft.";
+        window.location.href = mailtoUrl;
+      });
     })();
   </script>
 </body>
