@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Construct - The Simtec Group AG</title>
+  <link rel="icon" type="image/jpeg" href="../assets/img/simtec_ai.jpeg">
+  <link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body class="page-construct">
+  <canvas class="motion-bg" id="motion-bg" aria-hidden="true"></canvas>
+  <aside class="construct-rail" aria-label="Construct navigation">
+    <a class="construct-rail-home" href="../index.html" aria-label="Return to the Simtec homepage">
+      <img class="construct-home-image" src="../assets/img/simtec_ai.jpeg" alt="Simtec heartbeat image">
+      <div class="construct-home-copy">
+        <span class="construct-home-label">Simtec Rail</span>
+        <span class="construct-home-title">Construct</span>
+      </div>
+    </a>
+
+    <div class="construct-rail-nav" role="list" aria-label="Construct sections">
+      <button class="construct-rail-item is-active" type="button" aria-label="Overview">
+        <span class="construct-rail-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6.5h16"></path>
+            <path d="M4 12h10"></path>
+            <path d="M4 17.5h16"></path>
+          </svg>
+        </span>
+        <span class="construct-rail-label">Overview</span>
+      </button>
+
+      <button class="construct-rail-item" type="button" aria-label="Systems">
+        <span class="construct-rail-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="7" cy="7" r="2.25"></circle>
+            <circle cx="17" cy="7" r="2.25"></circle>
+            <circle cx="12" cy="17" r="2.25"></circle>
+            <path d="M8.9 8.15 10.9 15"></path>
+            <path d="M15.1 8.15 13.1 15"></path>
+            <path d="M9.25 7h5.5"></path>
+          </svg>
+        </span>
+        <span class="construct-rail-label">Systems</span>
+      </button>
+
+      <button class="construct-rail-item" type="button" aria-label="Modules">
+        <span class="construct-rail-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="6.5" height="6.5" rx="1.2"></rect>
+            <rect x="13.5" y="4" width="6.5" height="6.5" rx="1.2"></rect>
+            <rect x="4" y="13.5" width="6.5" height="6.5" rx="1.2"></rect>
+            <rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.2"></rect>
+          </svg>
+        </span>
+        <span class="construct-rail-label">Modules</span>
+      </button>
+
+      <button class="construct-rail-item" type="button" aria-label="Signals">
+        <span class="construct-rail-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12h4l2.25-5 3.5 10 2.15-5H21"></path>
+          </svg>
+        </span>
+        <span class="construct-rail-label">Signals</span>
+      </button>
+
+      <button class="construct-rail-item" type="button" aria-label="Launch">
+        <span class="construct-rail-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13.5 4.5c3.8.1 6 2.3 6 6 0 5-5.2 8.4-13.5 9 0 0 .6-8.3 9-13.5Z"></path>
+            <path d="M9.5 14.5 6 18"></path>
+            <path d="M13.5 10.5h.01"></path>
+          </svg>
+        </span>
+        <span class="construct-rail-label">Launch</span>
+      </button>
+    </div>
+
+    <button class="construct-rail-item construct-gear" type="button" aria-label="Settings">
+      <span class="construct-rail-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3.15"></circle>
+          <path d="M19.4 15a1 1 0 0 0 .2 1.1l.1.1a1.8 1.8 0 0 1 0 2.55 1.8 1.8 0 0 1-2.55 0l-.1-.1a1 1 0 0 0-1.08-.22 1 1 0 0 0-.6.92V20a1.8 1.8 0 0 1-1.8 1.8h-.15A1.8 1.8 0 0 1 11.6 20v-.15a1 1 0 0 0-.64-.92 1 1 0 0 0-1.08.22l-.1.1a1.8 1.8 0 0 1-2.55 0 1.8 1.8 0 0 1 0-2.55l.1-.1a1 1 0 0 0 .22-1.08 1 1 0 0 0-.92-.64H6.5A1.8 1.8 0 0 1 4.7 13v-.15A1.8 1.8 0 0 1 6.5 11h.15a1 1 0 0 0 .92-.64 1 1 0 0 0-.22-1.08l-.1-.1a1.8 1.8 0 0 1 0-2.55 1.8 1.8 0 0 1 2.55 0l.1.1a1 1 0 0 0 1.08.22 1 1 0 0 0 .64-.92V4A1.8 1.8 0 0 1 13.45 2.2h.15A1.8 1.8 0 0 1 15.4 4v.15a1 1 0 0 0 .6.92 1 1 0 0 0 1.08-.22l.1-.1a1.8 1.8 0 0 1 2.55 0 1.8 1.8 0 0 1 0 2.55l-.1.1a1 1 0 0 0-.2 1.1 1 1 0 0 0 .92.6h.15A1.8 1.8 0 0 1 22.3 10.85V11A1.8 1.8 0 0 1 20.5 12.8h-.15a1 1 0 0 0-.95.6Z"></path>
+        </svg>
+      </span>
+      <span class="construct-rail-label">Settings</span>
+    </button>
+  </aside>
+
+  <div class="construct-shell">
+    <header class="construct-breadcrumb-bar" aria-label="Breadcrumb">
+      <a class="construct-breadcrumb-link" href="../index.html">Simtec &gt;</a>
+      <span class="construct-breadcrumb-current">Construct</span>
+    </header>
+
+    <main class="construct-main" id="top">
+      <div class="construct-frame">
+        <section class="construct-stage" aria-labelledby="construct-title">
+          <div class="construct-hero-shell">
+            <div class="construct-hero-grid">
+              <div>
+                <div class="construct-kicker">
+                  <span class="construct-kicker-dot" aria-hidden="true"></span>
+                  Construct Interface
+                </div>
+                <h1 class="construct-title" id="construct-title">A new control surface for Simtec</h1>
+                <p class="construct-copy">
+                  This page now follows the same broad interaction language you pointed me to: a slim left rail that expands on hover, a gear control anchored at the lower edge, and a breadcrumb band across the top. The shell is ready for future content, but for now it stays intentionally self-contained and lightly wired.
+                </p>
+                <div class="construct-chip-row" aria-label="Construct page characteristics">
+                  <span class="construct-chip">Sliding Rail</span>
+                  <span class="construct-chip">Micro Icons</span>
+                  <span class="construct-chip">Top Breadcrumbs</span>
+                  <span class="construct-chip">Simtec Visual System</span>
+                </div>
+              </div>
+
+              <aside class="construct-hero-panel" aria-label="Construct page summary">
+                <img class="construct-home-preview" src="../assets/img/simtec_ai.jpeg" alt="Simtec heartbeat image preview">
+                <div class="construct-panel-meta">
+                  <span>Home Mark</span>
+                  <strong>Active</strong>
+                </div>
+                <p class="construct-panel-copy">
+                  The heartbeat image now carries both the favicon role and the top-left home mark inside the rail, tying the page chrome back to the Simtec identity.
+                </p>
+              </aside>
+            </div>
+          </div>
+
+          <div class="construct-grid">
+            <section class="construct-card" aria-labelledby="construct-layout-title">
+              <p class="eyebrow">Layout System</p>
+              <h2 id="construct-layout-title">Built like a page shell, not a placeholder</h2>
+              <p class="construct-section-intro">
+                Rather than stacking generic sections, this version treats `Construct` like the first screen of a larger internal or product surface. The left rail, breadcrumb strip, and card system can all support additional content later without needing a redesign.
+              </p>
+              <div class="construct-feature-list">
+                <article class="construct-feature-item">
+                  <span class="construct-feature-id">01</span>
+                  <div>
+                    <h3>Expandable Rail</h3>
+                    <p>The sidebar stays compact by default and reveals labels as the rail expands, preserving screen space while still giving room for future navigation.</p>
+                  </div>
+                </article>
+                <article class="construct-feature-item">
+                  <span class="construct-feature-id">02</span>
+                  <div>
+                    <h3>Shared Styling</h3>
+                    <p>The new chrome lives inside the centralized CSS, so the visual language stays consistent with the rest of the Simtec site rather than becoming a one-off.</p>
+                  </div>
+                </article>
+                <article class="construct-feature-item">
+                  <span class="construct-feature-id">03</span>
+                  <div>
+                    <h3>Future-Ready Slots</h3>
+                    <p>The icon rail already has room for future destinations, but it remains intentionally non-linked for now, exactly as requested.</p>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <aside class="construct-status-panel" aria-labelledby="construct-status-title">
+              <p class="eyebrow">Live Status</p>
+              <h2 id="construct-status-title">Navigation scaffold in place</h2>
+              <div class="construct-status-banner">
+                <strong>Shell Online</strong>
+                <span>Ready for deeper content later</span>
+              </div>
+              <div class="construct-status-list">
+                <article class="construct-status-item">
+                  <span class="construct-status-id">A</span>
+                  <div>
+                    <h3>Breadcrumb link</h3>
+                    <p>The only active route on the page is the breadcrumb back to the root index, keeping the rest of the interface intentionally dormant.</p>
+                  </div>
+                </article>
+                <article class="construct-status-item">
+                  <span class="construct-status-id">B</span>
+                  <div>
+                    <h3>Visual echo</h3>
+                    <p>The small icons, slim rail, and bottom gear placement borrow the same interaction cues without hard-cloning the reference site.</p>
+                  </div>
+                </article>
+                <article class="construct-status-item">
+                  <span class="construct-status-id">C</span>
+                  <div>
+                    <h3>Brand carry-through</h3>
+                    <p>The heartbeat image now pulls double duty as the favicon and the rail’s home mark, which keeps the experience distinctly Simtec.</p>
+                  </div>
+                </article>
+              </div>
+              <p class="construct-quiet-note">No child pages or additional live links have been introduced on this screen yet.</p>
+            </aside>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script defer src="../assets/js/motion-bg.js"></script>
+</body>
+</html>
